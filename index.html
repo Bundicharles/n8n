@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO (static defaults; overridden per-post on post.html) -->
+  <title>The Brief — Ideas Worth Reading</title>
+  <meta name="description" content="A modern blog publishing platform powered by n8n workflows and Supabase. Curated insights, delivered automatically." />
+
+  <!-- OpenGraph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="The Brief — Ideas Worth Reading" />
+  <meta property="og:description" content="A modern blog publishing platform powered by n8n workflows and Supabase." />
+  <meta property="og:image"       content="/og-default.jpg" />
+  <meta property="og:url"         content="https://yourdomain.com/" />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="The Brief — Ideas Worth Reading" />
+  <meta name="twitter:description" content="Curated insights, delivered automatically." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://yourdomain.com/" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body>
+
+  <!-- Ambient background blobs -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- ── Header ──────────────────────────────────────────── -->
+    <header class="site-header" role="banner">
+      <div class="container">
+        <a href="/" class="site-logo">
+          <span class="logo-dot"></span>
+          The Brief
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="/">Articles</a>
+          <a href="#">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ── Main content ────────────────────────────────────── -->
+    <main id="main-content">
+
+      <!-- Hero -->
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="container">
+          <span class="hero-eyebrow" aria-label="Section label">Automated Publishing</span>
+          <h1 id="hero-heading" class="hero-title">
+            Ideas &amp; insights<br><em>worth your time</em>
+          </h1>
+          <p class="hero-sub">
+            Curated articles published automatically via n8n workflows,
+            stored in Supabase, delivered fresh to your screen.
+          </p>
+        </div>
+      </section>
+
+      <!-- Posts section -->
+      <section class="posts-section" aria-labelledby="posts-heading">
+        <div class="container">
+
+          <!-- Section label -->
+          <p class="section-label" id="posts-heading">
+            Latest Articles
+            <span id="post-count" aria-live="polite"></span>
+          </p>
+
+          <!-- Loading skeletons — replaced with real cards after fetch -->
+          <div
+            id="skeleton-container"
+            class="skeleton-grid"
+            aria-busy="true"
+            aria-label="Loading articles"
+            role="status"
+          ></div>
+
+          <!-- Post cards injected here by main.js -->
+          <div
+            id="posts-grid"
+            class="posts-grid"
+            hidden
+            aria-label="Published articles"
+          ></div>
+
+          <!-- Error state -->
+          <div id="error-state" class="error-state" hidden role="alert" aria-live="assertive">
+            <div class="error-icon" aria-hidden="true">⚠️</div>
+            <h3>Something went wrong</h3>
+            <p>Could not load articles at this time.</p>
+          </div>
+
+          <!-- Empty state (no published posts yet) -->
+          <div id="empty-state" class="empty-state" hidden>
+            <h3>Nothing here yet</h3>
+            <p>New articles are published automatically — check back soon.</p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ── Footer ──────────────────────────────────────────── -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="footer-year"></span> The Brief.
+          Powered by <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a>
+          &amp; <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a>.
+        </p>
+      </div>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+  <!-- Footer year -->
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Main application (ES module) -->
+  <script type="module" src="main.js"></script>
+
+</body>
+</html>

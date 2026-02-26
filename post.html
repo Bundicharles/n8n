@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO meta tags populated dynamically by post.js -->
+  <title>Loading… — The Brief</title>
+  <meta name="description" content="" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="" />
+  <meta property="og:url" content="" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="" />
+  <link rel="canonical" href="" id="canonical-link" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body>
+
+  <!-- Ambient background blobs -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- Header -->
+    <header class="site-header" role="banner">
+      <div class="container">
+        <a href="/" class="site-logo">
+          <span class="logo-dot"></span>
+          The Brief
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="/">Articles</a>
+          <a href="#">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main id="main-content">
+
+      <!-- Loading skeleton -->
+      <section class="post-hero post-skeleton" id="post-skeleton" aria-hidden="true">
+        <div class="container">
+          <div class="skel skel-back"></div>
+          <div class="skel skel-meta" style="margin-bottom:20px;"></div>
+          <div class="skel skel-htitle-1"></div>
+          <div class="skel skel-htitle-2"></div>
+          <div class="skel skel-hero-img"></div>
+          <div class="skel skel-para" style="width:100%"></div>
+          <div class="skel skel-para" style="width:95%"></div>
+          <div class="skel skel-para" style="width:88%"></div>
+          <div class="skel skel-para" style="width:92%"></div>
+          <div class="skel skel-para" style="width:70%"></div>
+        </div>
+      </section>
+
+      <!-- Post content -->
+      <article id="post-content" hidden aria-labelledby="post-title">
+
+        <section class="post-hero">
+          <div class="container">
+
+            <a href="/" class="post-back" aria-label="Back to all articles">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M13 8H3M7 3L2 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              All Articles
+            </a>
+
+            <div class="post-meta-row">
+              <time id="post-date" datetime=""></time>
+              <span class="post-meta-divider" aria-hidden="true"></span>
+              <span id="post-read-time">Reading</span>
+            </div>
+
+            <h1 id="post-title" class="post-title-main"></h1>
+
+            <img
+              id="post-image"
+              class="post-featured-img"
+              src=""
+              alt=""
+              loading="eager"
+            />
+
+          </div>
+        </section>
+
+        <!-- Article body -->
+        <section class="container">
+          <div id="post-body" class="article-body"></div>
+
+          <!-- Interactions -->
+          <div class="post-interactions" style="margin-top:20px;">
+            <button id="like-btn" class="btn-like">❤️ Like</button>
+            <span id="like-count">0</span> likes
+          </div>
+
+          <!-- Comment Form -->
+          <section class="comments-section" style="margin-top:30px;">
+            <h2>Leave a Comment</h2>
+            <form id="comment-form">
+              <input type="text" id="commenter-name" placeholder="Your Name" required />
+              <textarea id="comment-content" placeholder="Write your comment..." required></textarea>
+              <button type="submit">Submit Comment</button>
+            </form>
+
+            <!-- Comments List -->
+            <div id="comments-list" class="comments-list" style="margin-top:20px;"></div>
+          </section>
+
+        </section>
+
+      </article>
+
+      <!-- Error state -->
+      <div id="error-state" class="error-state" hidden role="alert" aria-live="assertive">
+        <div class="container">
+          <div class="error-icon" aria-hidden="true">🔍</div>
+          <h3>Post not found</h3>
+          <p id="error-message">This article doesn't exist or has been unpublished.</p>
+          <br />
+          <a href="/" class="btn-read" style="display:inline-flex;margin-top:16px;">
+            ← Back to articles
+          </a>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="footer-year"></span> The Brief.
+          Powered by <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a>
+          &amp; <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a>.
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Footer year -->
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Post application -->
+  <script type="module" src="post.js"></script>
+
+</body>
+</html>
