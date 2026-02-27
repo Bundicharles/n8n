@@ -97,7 +97,36 @@ function renderPost(post) {
   skeletonEl.hidden = true;
   contentEl.hidden  = false;
 }
+// ── Share Buttons ─────────────────────────
 
+const currentUrl = window.location.href;
+const postTitle = document.title;
+
+document.getElementById('share-twitter').onclick = () => {
+  window.open(
+    `https://twitter.com/intent/tweet?text=${encodeURIComponent(postTitle)}&url=${encodeURIComponent(currentUrl)}`,
+    '_blank'
+  );
+};
+
+document.getElementById('share-facebook').onclick = () => {
+  window.open(
+    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`,
+    '_blank'
+  );
+};
+
+document.getElementById('share-linkedin').onclick = () => {
+  window.open(
+    `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`,
+    '_blank'
+  );
+};
+
+document.getElementById('copy-link').onclick = async () => {
+  await navigator.clipboard.writeText(currentUrl);
+  alert('Link copied to clipboard!');
+};
 function showError(message) {
   skeletonEl.hidden = true;
   if (errorMsgEl) errorMsgEl.textContent = message;
@@ -114,14 +143,31 @@ async function loadInteractions(post_id) {
 
 function renderComments(comments) {
   commentsList.innerHTML = '';
+
   comments.forEach(c => {
     const commentEl = document.createElement('div');
     commentEl.className = 'comment';
+
+    const repliesHtml = (c.comment_replies || [])
+      .map(r => `
+        <div class="reply">
+          <strong>${escapeHtml(r.user_name)}</strong>: 
+          ${escapeHtml(r.content)}
+        </div>
+      `).join('');
+
     commentEl.innerHTML = `
-      <p><strong>${c.user_name}</strong> (${new Date(c.created_at).toLocaleString()})</p>
-      <p>${c.content}</p>
+      <div class="comment-main">
+        <p>
+          <strong>${escapeHtml(c.user_name)}</strong>
+          <small>${new Date(c.created_at).toLocaleString()}</small>
+        </p>
+        <p>${escapeHtml(c.content)}</p>
+      </div>
+
       <div class="replies">
-        ${c.comment_replies.map(r => `<p><strong>${r.user_name}</strong>: ${r.content}</p>`).join('')}
+        ${repliesHtml}
+
         <form class="reply-form" data-comment-id="${c.id}">
           <input type="text" placeholder="Your Name" required>
           <input type="text" placeholder="Reply..." required>
@@ -129,6 +175,7 @@ function renderComments(comments) {
         </form>
       </div>
     `;
+
     commentsList.appendChild(commentEl);
   });
 
@@ -139,12 +186,25 @@ function renderComments(comments) {
       const userName = form.children[0].value.trim();
       const content  = form.children[1].value.trim();
       if (!userName || !content) return;
+
       await addReply(commentId, userName, content);
       await loadInteractions(postId);
     });
   });
 }
 
+// Prevent XSS
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, function (m) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    }[m];
+  });
+}
 let postId;
 
 async function init() {

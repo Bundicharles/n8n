@@ -112,7 +112,52 @@
         <section class="container">
           <div id="post-body" class="article-body"></div>
         </section>
+<!-- ── Post Interactions ─────────────────────────── -->
+<section class="container post-interactions">
 
+  <!-- Like + Share Row -->
+  <div class="interaction-bar">
+
+    <button id="like-btn" class="like-btn">
+      ❤️ <span id="like-count">0</span>
+    </button>
+
+    <div class="share-buttons">
+      <button id="share-twitter">Share on X</button>
+      <button id="share-facebook">Facebook</button>
+      <button id="share-linkedin">LinkedIn</button>
+      <button id="copy-link">Copy Link</button>
+    </div>
+
+  </div>
+
+  <!-- Comment Form -->
+  <div class="comments-section">
+    <h3>Comments</h3>
+
+    <form id="comment-form" class="comment-form">
+      <input 
+        type="text" 
+        id="commenter-name" 
+        placeholder="Your Name" 
+        required
+      />
+
+      <textarea 
+        id="comment-content" 
+        placeholder="Write a comment..." 
+        rows="4"
+        required
+      ></textarea>
+
+      <button type="submit">Post Comment</button>
+    </form>
+
+    <div id="comments-list" class="comments-list"></div>
+
+  </div>
+
+</section>
       </article>
 
       <!-- Error state (post not found / Supabase error) -->

@@ -601,3 +601,68 @@ img { display: block; max-width: 100%; }
   .card-body { padding: 20px; }
   .card-footer { padding: 0 20px 20px; }
 }
+.post-interactions {
+  margin-top: 60px;
+}
+
+.interaction-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.like-btn {
+  background: #111;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.like-btn:hover {
+  opacity: 0.85;
+}
+
+.share-buttons button {
+  margin-left: 10px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+}
+
+.comments-section {
+  margin-top: 40px;
+}
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.comment-form button {
+  background: #000;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.comment {
+  border-bottom: 1px solid #eee;
+  padding: 16px 0;
+}
+
+.reply {
+  margin-left: 20px;
+  font-size: 14px;
+  margin-top: 6px;
+}
