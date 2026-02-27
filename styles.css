@@ -686,6 +686,7 @@ img { display: block; max-width: 100%; }
 /* ── Comments List ── */
 .comments-list {
   display: flex;
+  color: #9a06f0;
   flex-direction: column;
   gap: 15px;
 }
