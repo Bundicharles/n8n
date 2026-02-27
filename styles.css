@@ -640,7 +640,7 @@ img { display: block; max-width: 100%; }
 .comments-section h2 {
   font-size: 1.3rem;
   margin-bottom: 15px;
-  color: #222;
+  color: #090018;
 }
 
 #comment-form {
@@ -654,7 +654,7 @@ img { display: block; max-width: 100%; }
 #comment-form textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #2f003d;
+  border: 1px solid #090018;
   border-radius: 6px;
   font-size: 0.95rem;
   font-family: 'Inter', sans-serif;
@@ -664,12 +664,12 @@ img { display: block; max-width: 100%; }
 #comment-form input:focus,
 #comment-form textarea:focus {
   outline: none;
-  border-color: #0077ff;
+  border-color: #090018;
 }
 
 #comment-form button {
   align-self: flex-start;
-  background-color: #0077ff;
+  background-color: #090018;
   color: #09022b;
   border: none;
   padding: 8px 16px;
@@ -701,13 +701,13 @@ img { display: block; max-width: 100%; }
 .comment .comment-meta {
   font-size: 0.85rem;
   font-weight: 500;
-  color: #555;
+  color: #090018;
   margin-bottom: 6px;
 }
 
 .comment .comment-body {
   font-size: 0.95rem;
-  color: #333;
+  color: #090018;
 }
 
 /* ── Reply Form (nested inside comment) ── */
@@ -734,13 +734,13 @@ img { display: block; max-width: 100%; }
 
 .reply-form input::placeholder,
 .reply-form textarea::placeholder {
-  color: #888;                 /* Visible placeholder */
+  color: #090018;                 /* Visible placeholder */
 }
 
 .reply-form input:focus,
 .reply-form textarea:focus {
   outline: none;
-  border-color: #555;
+  border-color: #090018;
   background-color: #141414;
 }
 
