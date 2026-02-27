@@ -712,6 +712,7 @@ img { display: block; max-width: 100%; }
 /* ── Reply Form (nested inside comment) ── */
 .reply-form {
   display: flex;
+  color: blue;
   flex-direction: column;
   gap: 8px;
   margin-top: 8px;
