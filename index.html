@@ -1,327 +1,141 @@
-/* =========================================
-   THE BRIEF — LUXURY DARK GLASS EDITORIAL
-========================================= */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-/* ---------- RESET ---------- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+  <!-- Primary SEO (static defaults; overridden per-post on post.html) -->
+  <title>The Brief — Ideas Worth Reading</title>
+  <meta name="description" content="A modern blog publishing platform powered by n8n workflows and Supabase. Curated insights, delivered automatically." />
 
-html, body {
-  margin: 0;
-  padding: 0;
-  scroll-behavior: smooth;
-}
+  <!-- OpenGraph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="The Brief — Ideas Worth Reading" />
+  <meta property="og:description" content="A modern blog publishing platform powered by n8n workflows and Supabase." />
+  <meta property="og:image"       content="/og-default.jpg" />
+  <meta property="og:url"         content="https://yourdomain.com/" />
 
-/* ---------- ROOT ---------- */
-:root {
-  --bg: #0b0d13;
-  --bg-elevated: #12141c;
+  <!-- Twitter / X card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="The Brief — Ideas Worth Reading" />
+  <meta name="twitter:description" content="Curated insights, delivered automatically." />
 
-  --glass: rgba(255, 255, 255, 0.05);
-  --glass-strong: rgba(255, 255, 255, 0.1);
-  --border: rgba(255, 255, 255, 0.08);
+  <!-- Canonical -->
+  <link rel="canonical" href="https://yourdomain.com/" />
 
-  --text: #f8fafc;
-  --text-muted: #9ca3af;
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
 
-  --accent: #8b5cf6;
-  --accent-glow: rgba(139, 92, 246, 0.4);
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body>
 
-  --radius: 20px;
-}
+  <!-- Ambient background blobs -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
 
-/* ---------- BODY ---------- */
-body {
-  font-family: "Georgia", "Times New Roman", serif;
-  background:
-    radial-gradient(circle at 10% 10%, #1c1f2b, transparent 40%),
-    radial-gradient(circle at 90% 90%, #141824, transparent 40%),
-    var(--bg);
-  color: var(--text);
-  line-height: 1.8;
-  -webkit-font-smoothing: antialiased;
-}
+  <div class="page-wrapper">
 
-/* ---------- CONTAINER ---------- */
-.container {
-  width: 92%;
-  max-width: 1100px;
-  margin: 0 auto;
-}
+    <!-- ── Header ──────────────────────────────────────────── -->
+    <header class="site-header" role="banner">
+      <div class="container">
+        <a href="/" class="site-logo">
+          <span class="logo-dot"></span>
+          The Brief
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="/">Articles</a>
+          <a href="#">About</a>
+        </nav>
+      </div>
+    </header>
 
-/* ---------- GLASS BASE ---------- */
-.glass {
-  background: var(--glass);
-  backdrop-filter: blur(25px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
+    <!-- ── Main content ────────────────────────────────────── -->
+    <main id="main-content">
 
-/* ---------- HEADER ---------- */
-.site-header {
-  backdrop-filter: blur(25px);
-  background: rgba(15, 17, 25, 0.7);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+      <!-- Hero -->
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="container">
+          <span class="hero-eyebrow" aria-label="Section label">Automated Publishing</span>
+          <h1 id="hero-heading" class="hero-title">
+            Ideas &amp; insights<br><em>worth your time</em>
+          </h1>
+          <p class="hero-sub">
+            Curated articles published automatically via n8n workflows,
+            stored in Supabase, delivered fresh to your screen.
+          </p>
+        </div>
+      </section>
 
-.site-header .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 0;
-}
+      <!-- Posts section -->
+      <section class="posts-section" aria-labelledby="posts-heading">
+        <div class="container">
 
-.site-logo {
-  font-weight: 600;
-  font-size: 1.4rem;
-  text-decoration: none;
-  color: var(--text);
-  letter-spacing: -0.5px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+          <!-- Section label -->
+          <p class="section-label" id="posts-heading">
+            Latest Articles
+            <span id="post-count" aria-live="polite"></span>
+          </p>
 
-.logo-dot {
-  width: 10px;
-  height: 10px;
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 12px var(--accent-glow);
-}
+          <!-- Loading skeletons — replaced with real cards after fetch -->
+          <div
+            id="skeleton-container"
+            class="skeleton-grid"
+            aria-busy="true"
+            aria-label="Loading articles"
+            role="status"
+          ></div>
 
-.site-nav a {
-  color: var(--text-muted);
-  text-decoration: none;
-  margin-left: 28px;
-  font-size: 0.95rem;
-  position: relative;
-}
+          <!-- Post cards injected here by main.js -->
+          <div
+            id="posts-grid"
+            class="posts-grid"
+            hidden
+            aria-label="Published articles"
+          ></div>
 
-.site-nav a::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  background: var(--accent);
-  transition: 0.3s ease;
-}
+          <!-- Error state -->
+          <div id="error-state" class="error-state" hidden role="alert" aria-live="assertive">
+            <div class="error-icon" aria-hidden="true">⚠️</div>
+            <h3>Something went wrong</h3>
+            <p>Could not load articles at this time.</p>
+          </div>
 
-.site-nav a:hover {
-  color: var(--text);
-}
+          <!-- Empty state (no published posts yet) -->
+          <div id="empty-state" class="empty-state" hidden>
+            <h3>Nothing here yet</h3>
+            <p>New articles are published automatically — check back soon.</p>
+          </div>
 
-.site-nav a:hover::after {
-  width: 100%;
-}
+        </div>
+      </section>
 
-/* ---------- HERO ---------- */
-.hero {
-  padding: 140px 0 100px;
-  text-align: center;
-}
+    </main>
 
-.hero-title {
-  font-size: 3.4rem;
-  font-weight: 500;
-  line-height: 1.15;
-  margin-bottom: 25px;
-  letter-spacing: -1px;
-}
+    <!-- ── Footer ──────────────────────────────────────────── -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="footer-year"></span> The Brief.
+          Powered by <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a>
+          &amp; <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a>.
+        </p>
+      </div>
+    </footer>
 
-.hero-title em {
-  font-style: italic;
-  color: var(--accent);
-}
+  </div><!-- /.page-wrapper -->
 
-.hero-sub {
-  max-width: 650px;
-  margin: 0 auto;
-  font-size: 1.1rem;
-  color: var(--text-muted);
-}
+  <!-- Footer year -->
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
 
-/* ---------- POSTS GRID ---------- */
-.posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 35px;
-  margin-top: 50px;
-}
+  <!-- Main application (ES module) -->
+  <script type="module" src="main.js"></script>
 
-/* ---------- POST CARD ---------- */
-.post-card {
-  background: var(--glass);
-  backdrop-filter: blur(30px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  transition: all 0.4s ease;
-}
-
-.post-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  background: var(--glass-strong);
-}
-
-.post-card img {
-  width: 100%;
-  border-radius: 14px;
-  margin-bottom: 18px;
-}
-
-.post-card h3 {
-  margin: 0 0 10px;
-  font-size: 1.25rem;
-  line-height: 1.4;
-}
-
-.post-card p {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-}
-
-/* ---------- POST PAGE ---------- */
-.post-hero {
-  padding: 90px 0 40px;
-}
-
-.post-title-main {
-  font-size: 3rem;
-  line-height: 1.2;
-  margin: 20px 0 35px;
-  letter-spacing: -1px;
-}
-
-.post-featured-img {
-  width: 100%;
-  border-radius: var(--radius);
-  margin: 40px 0;
-}
-
-.post-meta-row {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-
-/* ---------- ARTICLE TYPOGRAPHY ---------- */
-.article-body {
-  font-size: 1.2rem;
-  max-width: 750px;
-  margin: 0 auto;
-}
-
-.article-body p {
-  margin-bottom: 1.8em;
-}
-
-.article-body h2 {
-  font-size: 1.8rem;
-  margin-top: 2.8em;
-}
-
-.article-body h3 {
-  font-size: 1.4rem;
-  margin-top: 2.2em;
-}
-
-.article-body blockquote {
-  border-left: 3px solid var(--accent);
-  padding-left: 22px;
-  margin: 2em 0;
-  font-style: italic;
-  color: var(--text-muted);
-}
-
-.article-body a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.article-body a:hover {
-  text-decoration: underline;
-}
-
-/* ---------- LIKE BUTTON ---------- */
-.btn-like {
-  border-radius: 50px;
-  padding: 10px 20px;
-  transition: all 0.3s ease;
-}
-
-.btn-like:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px var(--accent-glow);
-}
-
-/* ---------- COMMENTS ---------- */
-.comments-section input,
-.comments-section textarea {
-  width: 100%;
-  padding: 14px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: var(--bg-elevated);
-  color: var(--text);
-  margin-bottom: 15px;
-  font-family: inherit;
-}
-
-.comment-item {
-  background: var(--glass);
-  border: 1px solid var(--border);
-  padding: 18px;
-  border-radius: 16px;
-  margin-bottom: 18px;
-}
-
-/* ---------- FOOTER ---------- */
-.site-footer {
-  margin-top: 120px;
-  padding: 50px 0;
-  border-top: 1px solid var(--border);
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-
-.site-footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-/* ---------- READING PROGRESS BAR ---------- */
-.progress-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background: var(--accent);
-  z-index: 200;
-  box-shadow: 0 0 10px var(--accent-glow);
-}
-
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.4rem;
-  }
-
-  .post-title-main {
-    font-size: 2.1rem;
-  }
-
-  .article-body {
-    font-size: 1.1rem;
-  }
-}
+</body>
+</html>
