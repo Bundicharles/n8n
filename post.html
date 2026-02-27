@@ -4,20 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- SEO meta tags populated dynamically by post.js -->
+  <!--
+    SEO meta tags below are populated dynamically by post.js
+    once the post data is fetched from Supabase.
+    The default values here act as fallbacks.
+  -->
   <title>Loading… — The Brief</title>
   <meta name="description" content="" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="" />
+
+  <!-- OpenGraph (filled dynamically) -->
+  <meta property="og:type"        content="article" />
+  <meta property="og:title"       content="" />
   <meta property="og:description" content="" />
-  <meta property="og:image" content="" />
-  <meta property="og:url" content="" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="" />
+  <meta property="og:image"       content="" />
+  <meta property="og:url"         content="" />
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="" />
   <meta name="twitter:description" content="" />
-  <meta name="twitter:image" content="" />
+  <meta name="twitter:image"       content="" />
+
+  <!-- Canonical (filled dynamically) -->
   <link rel="canonical" href="" id="canonical-link" />
 
+  <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,7 +43,7 @@
 
   <div class="page-wrapper">
 
-    <!-- Header -->
+    <!-- ── Header ──────────────────────────────────────────── -->
     <header class="site-header" role="banner">
       <div class="container">
         <a href="/" class="site-logo">
@@ -46,10 +57,10 @@
       </div>
     </header>
 
-    <!-- Main content -->
+    <!-- ── Main content ────────────────────────────────────── -->
     <main id="main-content">
 
-      <!-- Loading skeleton -->
+      <!-- Loading skeleton shown while fetching post -->
       <section class="post-hero post-skeleton" id="post-skeleton" aria-hidden="true">
         <div class="container">
           <div class="skel skel-back"></div>
@@ -65,7 +76,7 @@
         </div>
       </section>
 
-      <!-- Post content -->
+      <!-- Post content injected here by post.js -->
       <article id="post-content" hidden aria-labelledby="post-title">
 
         <section class="post-hero">
@@ -100,31 +111,11 @@
         <!-- Article body -->
         <section class="container">
           <div id="post-body" class="article-body"></div>
-
-          <!-- Interactions -->
-          <div class="post-interactions" style="margin-top:20px;">
-            <button id="like-btn" class="btn-like">❤️ Like</button>
-            <span id="like-count">0</span> likes
-          </div>
-
-          <!-- Comment Form -->
-          <section class="comments-section" style="margin-top:30px;">
-            <h2>Leave a Comment</h2>
-            <form id="comment-form">
-              <input type="text" id="commenter-name" placeholder="Your Name" required />
-              <textarea id="comment-content" placeholder="Write your comment..." required></textarea>
-              <button type="submit">Submit Comment</button>
-            </form>
-
-            <!-- Comments List -->
-            <div id="comments-list" class="comments-list" style="margin-top:20px;"></div>
-          </section>
-
         </section>
 
       </article>
 
-      <!-- Error state -->
+      <!-- Error state (post not found / Supabase error) -->
       <div id="error-state" class="error-state" hidden role="alert" aria-live="assertive">
         <div class="container">
           <div class="error-icon" aria-hidden="true">🔍</div>
@@ -139,7 +130,7 @@
 
     </main>
 
-    <!-- Footer -->
+    <!-- ── Footer ──────────────────────────────────────────── -->
     <footer class="site-footer" role="contentinfo">
       <div class="container">
         <p>
@@ -150,14 +141,14 @@
       </div>
     </footer>
 
-  </div>
+  </div><!-- /.page-wrapper -->
 
   <!-- Footer year -->
   <script>
     document.getElementById('footer-year').textContent = new Date().getFullYear();
   </script>
 
-  <!-- Post application -->
+  <!-- Post application (ES module) -->
   <script type="module" src="post.js"></script>
 
 </body>
