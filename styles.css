@@ -601,3 +601,70 @@ img { display: block; max-width: 100%; }
   .card-body { padding: 20px; }
   .card-footer { padding: 0 20px 20px; }
 }
+/* Right Glass Logo Orb */
+.header-icon-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  cursor: pointer;
+
+  /* Glass effect */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  box-shadow:
+    0 0 15px rgba(120, 180, 255, 0.4),
+    0 0 30px rgba(120, 180, 255, 0.2),
+    inset 0 2px 6px rgba(255, 255, 255, 0.25);
+
+  animation: glowPulse 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+/* Hover lift */
+.header-icon-dot:hover {
+  transform: scale(1.1);
+}
+
+/* Continuous glow animation */
+@keyframes glowPulse {
+  0% {
+    box-shadow:
+      0 0 10px rgb(30, 247, 1),
+      0 0 20px rgb(25, 1, 248),
+      inset 0 2px 6px rgb(245, 0, 0);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgb(56, 2, 255),
+      0 0 45px rgb(241, 1, 1),
+      inset 0 2px 8px rgb(0, 255, 21);
+  }
+  100% {
+    box-shadow:
+      0 0 10px rgb(250, 1, 1),
+      0 0 20px rgb(42, 250, 0),
+      inset 0 2px 6px rgb(4, 0, 245);
+  }
+}
+.header-icon-dot::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  width: 60%;
+  height: 35%;
+  border-radius: 50%;
+  background: linear-gradient(
+    to bottom right,
+    rgb(55, 3, 245),
+    rgb(248, 0, 227)
+  );
+  pointer-events: none;
+  filter: blur(1px);
+}

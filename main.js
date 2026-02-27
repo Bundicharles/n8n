@@ -1,14 +1,3 @@
-/**
- * main.js
- * Homepage: fetch published posts from Supabase and render the grid.
- *
- * Responsibilities:
- *  - Show skeleton loaders while fetching
- *  - Render post cards once data arrives
- *  - Show an error state if Supabase returns an error
- *  - Show an empty state when no posts are published yet
- */
-
 import { fetchPublishedPosts, formatDate, FALLBACK_IMAGE } from './supabase.js';
 
 // ── DOM references ────────────────────────────────────────────────────────
@@ -108,7 +97,7 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-// ── Render functions ──────────────────────────────────────────────────────
+
 
 function showError(message) {
   errorEl.querySelector('p').textContent = message;
@@ -129,7 +118,6 @@ function renderPosts(posts) {
   gridEl.hidden = false;
 }
 
-// ── Initialise ────────────────────────────────────────────────────────────
 
 async function init() {
   showSkeletons(6);
@@ -147,5 +135,5 @@ async function init() {
   }
 }
 
-// ── Boot on DOM ready ─────────────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', init);
