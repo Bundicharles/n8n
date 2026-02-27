@@ -721,6 +721,7 @@ img { display: block; max-width: 100%; }
 .reply-form input,
 .reply-form textarea {
   font-size: 0.9rem;
+   color: blue;
   padding: 6px 10px;
 }
 
