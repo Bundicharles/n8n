@@ -726,7 +726,7 @@ img { display: block; max-width: 100%; }
   font-size: 0.9rem;
   padding: 8px 10px;
   background-color: #111;      /* Slight contrast */
-  color: #fff;                 /* White text */
+  color: #09ff00;                 /* White text */
   border: 1px solid #2a2a2a;
   border-radius: 6px;
 }
