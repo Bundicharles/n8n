@@ -112,66 +112,7 @@
         <section class="container">
           <div id="post-body" class="article-body"></div>
         </section>
-<!-- ── Post Interactions ─────────────────────────── -->
-<!-- ── Facebook-style Interaction Bar ───────────────────── -->
-<section class="container post-interactions">
 
-  <div class="fb-bar">
-
-    <button id="like-btn" class="fb-btn">
-      <span class="fb-icon">👍</span>
-      <span id="like-text">Like</span>
-    </button>
-
-    <button id="comment-btn" class="fb-btn">
-      <span class="fb-icon">💬</span>
-      Comment
-    </button>
-
-    <button id="share-btn" class="fb-btn">
-      <span class="fb-icon">↪</span>
-      Share
-    </button>
-
-  </div>
-
-  <!-- Like count -->
-  <div class="fb-like-count">
-    <span id="like-count">0</span> people like this
-  </div>
-
-  <!-- Share popup -->
-  <div id="share-menu" class="fb-share-menu" hidden>
-    <button id="share-twitter">Share on X</button>
-    <button id="share-facebook">Share on Facebook</button>
-    <button id="share-linkedin">Share on LinkedIn</button>
-    <button id="copy-link">Copy link</button>
-  </div>
-
-  <!-- Comments Section -->
-  <div class="comments-section">
-
-    <form id="comment-form" class="comment-form">
-      <input 
-        type="text" 
-        id="commenter-name" 
-        placeholder="Write your name..."
-        required
-      />
-      <textarea 
-        id="comment-content"
-        placeholder="Write a comment..."
-        required
-      ></textarea>
-
-      <button type="submit">Post</button>
-    </form>
-
-    <div id="comments-list"></div>
-
-  </div>
-
-</section>
       </article>
 
       <!-- Error state (post not found / Supabase error) -->
