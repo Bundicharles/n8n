@@ -113,47 +113,61 @@
           <div id="post-body" class="article-body"></div>
         </section>
 <!-- ── Post Interactions ─────────────────────────── -->
+<!-- ── Facebook-style Interaction Bar ───────────────────── -->
 <section class="container post-interactions">
 
-  <!-- Like + Share Row -->
-  <div class="interaction-bar">
+  <div class="fb-bar">
 
-    <button id="like-btn" class="like-btn">
-      ❤️ <span id="like-count">0</span>
+    <button id="like-btn" class="fb-btn">
+      <span class="fb-icon">👍</span>
+      <span id="like-text">Like</span>
     </button>
 
-    <div class="share-buttons">
-      <button id="share-twitter">Share on X</button>
-      <button id="share-facebook">Facebook</button>
-      <button id="share-linkedin">LinkedIn</button>
-      <button id="copy-link">Copy Link</button>
-    </div>
+    <button id="comment-btn" class="fb-btn">
+      <span class="fb-icon">💬</span>
+      Comment
+    </button>
+
+    <button id="share-btn" class="fb-btn">
+      <span class="fb-icon">↪</span>
+      Share
+    </button>
 
   </div>
 
-  <!-- Comment Form -->
+  <!-- Like count -->
+  <div class="fb-like-count">
+    <span id="like-count">0</span> people like this
+  </div>
+
+  <!-- Share popup -->
+  <div id="share-menu" class="fb-share-menu" hidden>
+    <button id="share-twitter">Share on X</button>
+    <button id="share-facebook">Share on Facebook</button>
+    <button id="share-linkedin">Share on LinkedIn</button>
+    <button id="copy-link">Copy link</button>
+  </div>
+
+  <!-- Comments Section -->
   <div class="comments-section">
-    <h3>Comments</h3>
 
     <form id="comment-form" class="comment-form">
       <input 
         type="text" 
         id="commenter-name" 
-        placeholder="Your Name" 
+        placeholder="Write your name..."
         required
       />
-
       <textarea 
-        id="comment-content" 
-        placeholder="Write a comment..." 
-        rows="4"
+        id="comment-content"
+        placeholder="Write a comment..."
         required
       ></textarea>
 
-      <button type="submit">Post Comment</button>
+      <button type="submit">Post</button>
     </form>
 
-    <div id="comments-list" class="comments-list"></div>
+    <div id="comments-list"></div>
 
   </div>
 

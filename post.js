@@ -9,6 +9,10 @@ import {
   addReply 
 } from './supabase.js';
 
+/* ─────────────────────────────────────────────
+   ELEMENTS
+───────────────────────────────────────────── */
+
 const skeletonEl  = document.getElementById('post-skeleton');
 const contentEl   = document.getElementById('post-content');
 const errorEl     = document.getElementById('error-state');
@@ -23,8 +27,21 @@ const bodyEl      = document.getElementById('post-body');
 const likeBtn     = document.getElementById('like-btn');
 const likeCountEl = document.getElementById('like-count');
 
-const commentForm = document.getElementById('comment-form');
-const commentsList = document.getElementById('comments-list');
+const commentBtn       = document.getElementById('comment-btn');
+const commentCountEl   = document.getElementById('comment-count');
+const commentForm      = document.getElementById('comment-form');
+const commentsList     = document.getElementById('comments-list');
+
+const shareBtn   = document.getElementById('share-btn');
+
+/* ───────────────────────────────────────────── */
+
+let postId;
+let userHasLiked = false;
+
+/* ─────────────────────────────────────────────
+   HELPERS
+───────────────────────────────────────────── */
 
 function getSlugFromUrl() {
   const params = new URLSearchParams(window.location.search);
@@ -41,14 +58,34 @@ function estimateReadTime(html) {
 function sanitiseHtml(html) {
   const parser = new DOMParser();
   const doc    = parser.parseFromString(html, 'text/html');
-  doc.querySelectorAll('script, iframe, object, embed, form').forEach(el => el.remove());
+
+  doc.querySelectorAll('script, iframe, object, embed, form')
+    .forEach(el => el.remove());
+
   doc.querySelectorAll('*').forEach(el => {
     [...el.attributes].forEach(attr => {
       if (attr.name.startsWith('on')) el.removeAttribute(attr.name);
     });
   });
+
   return doc.body.innerHTML;
 }
+
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, function (m) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    }[m];
+  });
+}
+
+/* ─────────────────────────────────────────────
+   SEO
+───────────────────────────────────────────── */
 
 function injectSeoMeta(post) {
   const siteBase = window.location.origin;
@@ -64,18 +101,22 @@ function injectSeoMeta(post) {
     if (el) el.setAttribute('content', value);
   };
 
-  setMeta('meta[name="description"]',        metaDesc);
-  setMeta('meta[property="og:title"]',       metaTitle);
+  setMeta('meta[name="description"]', metaDesc);
+  setMeta('meta[property="og:title"]', metaTitle);
   setMeta('meta[property="og:description"]', metaDesc);
-  setMeta('meta[property="og:image"]',       ogImage);
-  setMeta('meta[property="og:url"]',         postUrl);
-  setMeta('meta[name="twitter:title"]',      metaTitle);
-  setMeta('meta[name="twitter:description"]',metaDesc);
-  setMeta('meta[name="twitter:image"]',      ogImage);
+  setMeta('meta[property="og:image"]', ogImage);
+  setMeta('meta[property="og:url"]', postUrl);
+  setMeta('meta[name="twitter:title"]', metaTitle);
+  setMeta('meta[name="twitter:description"]', metaDesc);
+  setMeta('meta[name="twitter:image"]', ogImage);
 
   const canonical = document.getElementById('canonical-link');
   if (canonical) canonical.setAttribute('href', postUrl);
 }
+
+/* ─────────────────────────────────────────────
+   RENDER POST
+───────────────────────────────────────────── */
 
 function renderPost(post) {
   const formattedDate = formatDate(post.created_at);
@@ -88,7 +129,7 @@ function renderPost(post) {
   const imgSrc  = post.featured_image || FALLBACK_IMAGE;
   imageEl.src   = imgSrc;
   imageEl.alt   = post.title;
-  imageEl.onerror = () => { imageEl.src = FALLBACK_IMAGE; };
+  imageEl.onerror = () => imageEl.src = FALLBACK_IMAGE;
 
   bodyEl.innerHTML = sanitiseHtml(post.content || '<p>No content available.</p>');
 
@@ -97,49 +138,39 @@ function renderPost(post) {
   skeletonEl.hidden = true;
   contentEl.hidden  = false;
 }
-// ── Share Buttons ─────────────────────────
 
-const currentUrl = window.location.href;
-const postTitle = document.title;
-
-document.getElementById('share-twitter').onclick = () => {
-  window.open(
-    `https://twitter.com/intent/tweet?text=${encodeURIComponent(postTitle)}&url=${encodeURIComponent(currentUrl)}`,
-    '_blank'
-  );
-};
-
-document.getElementById('share-facebook').onclick = () => {
-  window.open(
-    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`,
-    '_blank'
-  );
-};
-
-document.getElementById('share-linkedin').onclick = () => {
-  window.open(
-    `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`,
-    '_blank'
-  );
-};
-
-document.getElementById('copy-link').onclick = async () => {
-  await navigator.clipboard.writeText(currentUrl);
-  alert('Link copied to clipboard!');
-};
-function showError(message) {
-  skeletonEl.hidden = true;
-  if (errorMsgEl) errorMsgEl.textContent = message;
-  errorEl.hidden = false;
-}
+/* ─────────────────────────────────────────────
+   INTERACTIONS
+───────────────────────────────────────────── */
 
 async function loadInteractions(post_id) {
   const likes = await fetchPostLikes(post_id);
-  likeCountEl.textContent = likes.length;
-
   const comments = await fetchComments(post_id);
+
+  likeCountEl.textContent = likes.length;
+  commentCountEl.textContent = comments.length;
+
+  userHasLiked = !!localStorage.getItem(`liked_post_${post_id}`);
+  updateLikeUI();
+
   renderComments(comments);
 }
+
+/* ─────────────────────────────────────────────
+   LIKE SYSTEM (Facebook Style)
+───────────────────────────────────────────── */
+
+function updateLikeUI() {
+  if (userHasLiked) {
+    likeBtn.classList.add('liked');
+  } else {
+    likeBtn.classList.remove('liked');
+  }
+}
+
+/* ─────────────────────────────────────────────
+   COMMENTS + REPLIES
+───────────────────────────────────────────── */
 
 function renderComments(comments) {
   commentsList.innerHTML = '';
@@ -151,7 +182,7 @@ function renderComments(comments) {
     const repliesHtml = (c.comment_replies || [])
       .map(r => `
         <div class="reply">
-          <strong>${escapeHtml(r.user_name)}</strong>: 
+          <strong>${escapeHtml(r.user_name)}</strong>:
           ${escapeHtml(r.content)}
         </div>
       `).join('');
@@ -185,6 +216,7 @@ function renderComments(comments) {
       const commentId = form.dataset.commentId;
       const userName = form.children[0].value.trim();
       const content  = form.children[1].value.trim();
+
       if (!userName || !content) return;
 
       await addReply(commentId, userName, content);
@@ -193,56 +225,114 @@ function renderComments(comments) {
   });
 }
 
-// Prevent XSS
-function escapeHtml(str) {
-  return str.replace(/[&<>"']/g, function (m) {
-    return {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#039;'
-    }[m];
-  });
+/* ─────────────────────────────────────────────
+   SHARE SYSTEM
+───────────────────────────────────────────── */
+
+async function handleShare() {
+  const shareData = {
+    title: document.title,
+    url: window.location.href
+  };
+
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData);
+    } catch (err) {}
+  } else {
+    await navigator.clipboard.writeText(shareData.url);
+    showToast('Link copied to clipboard!');
+  }
 }
-let postId;
+
+/* ─────────────────────────────────────────────
+   TOAST
+───────────────────────────────────────────── */
+
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+/* ─────────────────────────────────────────────
+   ERROR
+───────────────────────────────────────────── */
+
+function showError(message) {
+  skeletonEl.hidden = true;
+  errorMsgEl.textContent = message;
+  errorEl.hidden = false;
+}
+
+/* ─────────────────────────────────────────────
+   INIT
+───────────────────────────────────────────── */
 
 async function init() {
   const slug = getSlugFromUrl();
 
   if (!slug) {
-    showError('No article slug was provided. Please navigate from the homepage.');
+    showError('No article slug was provided.');
     return;
   }
 
   try {
     const post = await fetchPostBySlug(decodeURIComponent(slug));
     postId = post.id;
+
     renderPost(post);
     await loadInteractions(postId);
 
+    // LIKE BUTTON
     likeBtn.addEventListener('click', async () => {
-      await likePost(postId);
-      await loadInteractions(postId);
+      if (userHasLiked) {
+        localStorage.removeItem(`liked_post_${postId}`);
+        userHasLiked = false;
+        likeCountEl.textContent =
+          parseInt(likeCountEl.textContent) - 1;
+      } else {
+        await likePost(postId);
+        localStorage.setItem(`liked_post_${postId}`, 'true');
+        userHasLiked = true;
+        likeCountEl.textContent =
+          parseInt(likeCountEl.textContent) + 1;
+      }
+      updateLikeUI();
     });
 
+    // COMMENT BUTTON SCROLL
+    commentBtn?.addEventListener('click', () => {
+      document.getElementById('comment-content')
+        .scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // SHARE
+    shareBtn?.addEventListener('click', handleShare);
+
+    // NEW COMMENT
     commentForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const userName = document.getElementById('commenter-name').value.trim();
-      const content  = document.getElementById('comment-content').value.trim();
+
+      const userName = document
+        .getElementById('commenter-name').value.trim();
+      const content  = document
+        .getElementById('comment-content').value.trim();
+
       if (!userName || !content) return;
+
       await addComment(postId, userName, content);
       commentForm.reset();
       await loadInteractions(postId);
     });
 
   } catch (err) {
-    console.error('[Blog] Failed to load post:', err);
-    if (err?.code === 'PGRST116' || err?.message?.includes('no rows')) {
-      showError('This article doesn\'t exist or has been unpublished.');
-    } else {
-      showError('Could not load this article. Please try again later.');
-    }
+    console.error(err);
+    showError('Could not load this article.');
   }
 }
 
