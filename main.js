@@ -134,34 +134,4 @@ async function init() {
     );
   }
 }
-const colors = [
-    "#00f7ff",
-    "#ff00ff",
-    "#00ff88",
-    "#ffd700",
-    "#ff4d4d",
-    "#8a2be2"
-];
-
-let colorIndex = 0;
-
-function showTime() {
-    const now = new Date();
-    const el = document.getElementById('currentTime');
-
-    // Only time (HH:MM:SS)
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-
-    el.innerHTML = `${hours}:${minutes}:${seconds}`;
-
-    // Color changing effect
-    el.style.color = colors[colorIndex];
-    el.style.textShadow = `0 0 10px ${colors[colorIndex]}`;
-    colorIndex = (colorIndex + 1) % colors.length;
-}
-
-showTime();
-setInterval(showTime, 1000);
 document.addEventListener('DOMContentLoaded', init);

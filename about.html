@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | The Brief</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Base Styles */
+    body {
+      margin: 0;
+      font-family: 'DM Sans', sans-serif;
+      background: #0b0b0b;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #00f7ff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    /* Headline */
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      text-align: center;
+      color: #00f7ff;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Section Titles */
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    /* Glassmorphic Panels */
+    .panel {
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    /* Author Section */
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .author img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #00f7ff;
+    }
+
+    .author-info h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #00f7ff;
+    }
+
+    .author-info p {
+      margin: 0.25rem 0 0;
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    /* CTA Button */
+    .cta {
+      display: block;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .cta a {
+      display: inline-block;
+      background: #00f7ff;
+      color: #0b0b0b;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .cta a:hover {
+      background: #00d1ff;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Welcome to The Brief</h1>
+
+    <div class="panel">
+      <p>At <strong>The Brief</strong>, we explore the unsettling, the eerie, and the suspenseful. Every blog you find here is crafted to pull you into worlds where ordinary life meets extraordinary tension. From chilling tales of the supernatural to suspenseful mysteries, our stories keep you on the edge of your seat—sometimes long after you’ve closed your screen.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Our Mission</h2>
+      <p>We aim to deliver stories that entertain, thrill, and ignite your imagination. Whether it’s a three-knock warning from an old mirror or an unexplainable presence in a dark hallway, our content captures the thrill of the unknown and gives horror fans a place to come together and share their fascination.</p>
+    </div>
+
+    <div class="panel">
+      <h2>What We Offer</h2>
+      <ul>
+        <li><strong>Original Horror & Suspense Blogs:</strong> Every post is carefully written to immerse you fully.</li>
+        <li><strong>Series & Episodes:</strong> Follow multi-part stories with recurring characters and escalating tension.</li>
+        <li><strong>Interactive Experiences:</strong> Some posts include messages, mysterious clues, or references that make you feel part of the story.</li>
+        <li><strong>Community Connection:</strong> Share your thoughts, theories, and interpretations in the comments—your engagement keeps the suspense alive.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>Who We Are</h2>
+      <div class="author">
+        <!-- Use your local image here -->
+        <img src="icon.png" alt="Author">
+        <div class="author-info">
+          <h3>CHILLOH</h3>
+          <p>Founder & Writer</p>
+          <p>A storyteller fascinated by suspense, horror, and interactive narratives. Bringing eerie worlds to life online.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <a href="/subscribe">Subscribe for Updates</a>
+    </div>
+  </div>
+
+</body>
+</html>
