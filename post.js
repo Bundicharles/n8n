@@ -141,7 +141,13 @@ function renderPost(post) {
   contentEl.hidden  = false;
 }
 
+// ── Error display ─────────────────────────────────────────────────────────
 
+function showError(message) {
+  skeletonEl.hidden = true;
+  if (errorMsgEl) errorMsgEl.textContent = message;
+  errorEl.hidden = false;
+}
 
 // ── Initialise ────────────────────────────────────────────────────────────
 
