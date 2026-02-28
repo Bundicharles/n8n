@@ -12,7 +12,7 @@
 
 import { fetchPostBySlug, formatDate, FALLBACK_IMAGE } from './supabase.js';
 
-// ── DOM references ────────────────────────────────────────────────────────
+// DOM references
 const skeletonEl  = document.getElementById('post-skeleton');
 const contentEl   = document.getElementById('post-content');
 const errorEl     = document.getElementById('error-state');
@@ -24,8 +24,6 @@ const dateEl      = document.getElementById('post-date');
 const readTimeEl  = document.getElementById('post-read-time');
 const imageEl     = document.getElementById('post-image');
 const bodyEl      = document.getElementById('post-body');
-
-// ── Helpers ───────────────────────────────────────────────────────────────
 
 /**
  * Return the ?slug= parameter from the current URL.
@@ -63,15 +61,14 @@ function sanitiseHtml(html) {
 
   // Remove inline event handlers (onclick, onload, onerror, etc.)
   doc.querySelectorAll('*').forEach(el => {
-    [...el.attributes].forEach(attr => {
+    const attrs = [...el.attributes];
+    attrs.forEach(attr => {
       if (attr.name.startsWith('on')) el.removeAttribute(attr.name);
     });
   });
 
   return doc.body.innerHTML;
 }
-
-// ── SEO injection ─────────────────────────────────────────────────────────
 
 /**
  * Dynamically update all SEO-related meta tags with post data.
@@ -100,14 +97,12 @@ function injectSeoMeta(post) {
   setMeta('meta[property="og:url"]',         postUrl);
   setMeta('meta[name="twitter:title"]',      metaTitle);
   setMeta('meta[name="twitter:description"]',metaDesc);
-  setMeta('meta[name="twitter:image"]',      ogImage);
+  setMeta('meta[name="twitter:image"]',       ogImage);
 
   // Canonical
   const canonical = document.getElementById('canonical-link');
   if (canonical) canonical.setAttribute('href', postUrl);
 }
-
-// ── Render ────────────────────────────────────────────────────────────────
 
 /**
  * Populate all post DOM elements with fetched data.
@@ -141,16 +136,19 @@ function renderPost(post) {
   contentEl.hidden  = false;
 }
 
-// ── Error display ─────────────────────────────────────────────────────────
-
+/**
+ * Display error message to user.
+ * @param {string} message
+ */
 function showError(message) {
   skeletonEl.hidden = true;
   if (errorMsgEl) errorMsgEl.textContent = message;
   errorEl.hidden = false;
 }
 
-// ── Initialise ────────────────────────────────────────────────────────────
-
+/**
+ * Initialise the post page.
+ */
 async function init() {
   const slug = getSlugFromUrl();
 
@@ -167,12 +165,12 @@ async function init() {
 
     // Supabase returns a PGRST116 code when no rows are found
     if (err?.code === 'PGRST116' || err?.message?.includes('no rows')) {
-      showError('This article doesn't exist or has been unpublished.');
+      showError('This article doesn\'t exist or has been unpublished.');
     } else {
       showError('Could not load this article. Please try again later.');
     }
   }
 }
 
-// ── Boot ──────────────────────────────────────────────────────────────────
+// Boot on DOM ready
 document.addEventListener('DOMContentLoaded', init);
