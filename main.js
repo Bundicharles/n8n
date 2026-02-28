@@ -134,6 +134,41 @@ async function init() {
     );
   }
 }
+const colors = [
+    "#1100ff",
+    "#ff0000",
+    "#33ff00",
+    "#ff00b3",
+    "#f1e6e6",
+    "#00ffdd"
+];
 
+let colorIndex = 0;
 
+function showTime() {
+    const now = new Date();
+    const el = document.getElementById('currentTime');
+
+    const options = {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    };
+
+    // Update date + time (no GMT)
+    el.innerHTML = now.toLocaleString(undefined, options);
+
+    // Change color every second
+    el.style.color = colors[colorIndex];
+    el.style.textShadow = `0 0 10px ${colors[colorIndex]}`;
+
+    colorIndex = (colorIndex + 1) % colors.length;
+}
+
+showTime();
+setInterval(showTime, 1000);
 document.addEventListener('DOMContentLoaded', init);

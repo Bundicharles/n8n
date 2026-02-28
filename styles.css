@@ -668,3 +668,9 @@ img { display: block; max-width: 100%; }
   pointer-events: none;
   filter: blur(1px);
 }
+#currentTime {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #00f7ff;
+    transition: color 0.4s ease, text-shadow 0.4s ease;
+}
