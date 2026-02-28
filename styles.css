@@ -669,8 +669,9 @@ img { display: block; max-width: 100%; }
   filter: blur(1px);
 }
 #currentTime {
-    font-size: 2rem;
+    font-size: clamp(1rem, 4vw, 2rem);
     font-weight: bold;
-    color: #00f7ff;
     transition: color 0.4s ease, text-shadow 0.4s ease;
+    text-align: center;
+    word-break: break-word;
 }
