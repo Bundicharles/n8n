@@ -135,12 +135,12 @@ async function init() {
   }
 }
 const colors = [
-    "#1100ff",
-    "#ff0000",
-    "#33ff00",
-    "#ff00b3",
-    "#f1e6e6",
-    "#00ffdd"
+    "#00f7ff",
+    "#ff00ff",
+    "#00ff88",
+    "#ffd700",
+    "#ff4d4d",
+    "#8a2be2"
 ];
 
 let colorIndex = 0;
@@ -149,23 +149,21 @@ function showTime() {
     const now = new Date();
     const el = document.getElementById('currentTime');
 
-    const options = {
-        weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    };
+    // Numeric date
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const year = now.getFullYear();
 
-    // Update date + time (no GMT)
-    el.innerHTML = now.toLocaleString(undefined, options);
+    // Time
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
 
-    // Change color every second
+    el.innerHTML = `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
+
+    // Keep color changing
     el.style.color = colors[colorIndex];
     el.style.textShadow = `0 0 10px ${colors[colorIndex]}`;
-
     colorIndex = (colorIndex + 1) % colors.length;
 }
 
