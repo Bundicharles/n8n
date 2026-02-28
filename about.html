@@ -109,10 +109,29 @@
       background: #00d1ff;
     }
 
+    /* Footer */
+    footer {
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      text-align: center;
+      color: #ccc;
+      font-size: 0.9rem;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.5);
+    }
+
+    footer a {
+      color: #00f7ff;
+    }
+
     /* Responsive */
     @media (max-width: 600px) {
       h1 { font-size: 2.2rem; }
       h2 { font-size: 1.5rem; }
+      .author { flex-direction: column; align-items: flex-start; }
+      .author img { margin-bottom: 0.5rem; }
     }
   </style>
 </head>
@@ -122,33 +141,33 @@
     <h1>Welcome to The Brief</h1>
 
     <div class="panel">
-      <p>At <strong>The Brief</strong>, we explore the unsettling, the eerie, and the suspenseful. Every blog you find here is crafted to pull you into worlds where ordinary life meets extraordinary tension. From chilling tales of the supernatural to suspenseful mysteries, our stories keep you on the edge of your seat—sometimes long after you’ve closed your screen.</p>
+      <p>At <strong>The Brief</strong>, we explore stories that entertain, intrigue, and spark your imagination. From interactive narratives to suspenseful tales and thought-provoking experiences, our blogs are designed to immerse you in worlds where you are part of the story. Every post invites you to read, interact, and engage with the content in new and exciting ways.</p>
     </div>
 
     <div class="panel">
       <h2>Our Mission</h2>
-      <p>We aim to deliver stories that entertain, thrill, and ignite your imagination. Whether it’s a three-knock warning from an old mirror or an unexplainable presence in a dark hallway, our content captures the thrill of the unknown and gives horror fans a place to come together and share their fascination.</p>
+      <p>We aim to create a platform where storytelling goes beyond the ordinary. By combining creativity, interactivity, and immersive writing, we offer a space where readers can explore new ideas, solve mysteries, and experience stories from unique perspectives. If you want your own story to be featured, feel free to reach out to us through the contact information below.</p>
     </div>
 
     <div class="panel">
       <h2>What We Offer</h2>
       <ul>
-        <li><strong>Original Horror & Suspense Blogs:</strong> Every post is carefully written to immerse you fully.</li>
-        <li><strong>Series & Episodes:</strong> Follow multi-part stories with recurring characters and escalating tension.</li>
-        <li><strong>Interactive Experiences:</strong> Some posts include messages, mysterious clues, or references that make you feel part of the story.</li>
-        <li><strong>Community Connection:</strong> Share your thoughts, theories, and interpretations in the comments—your engagement keeps the suspense alive.</li>
+        <li><strong>Original Interactive Blogs:</strong> Thoughtful, creative, and engaging content for readers who love to be part of the narrative.</li>
+        <li><strong>Series & Multi-Part Stories:</strong> Follow stories across episodes or posts for deeper immersion and discovery.</li>
+        <li><strong>Interactive Experiences:</strong> Some posts include prompts, puzzles, or hidden clues to make your reading interactive.</li>
+        <li><strong>Community Engagement:</strong> Comment, share theories, and discuss posts with fellow readers to keep the conversation alive.</li>
       </ul>
     </div>
 
     <div class="panel">
       <h2>Who We Are</h2>
       <div class="author">
-        <!-- Use your local image here -->
+        <!-- Use your local image -->
         <img src="icon.png" alt="Author">
         <div class="author-info">
-          <h3>CHILLOH</h3>
+          <h3>Jane Makena</h3>
           <p>Founder & Writer</p>
-          <p>A storyteller fascinated by suspense, horror, and interactive narratives. Bringing eerie worlds to life online.</p>
+          <p>Passionate about interactive storytelling, immersive blogs, and engaging readers in creative experiences. Dedicated to bringing ideas to life and sparking imagination online.</p>
         </div>
       </div>
     </div>
@@ -157,6 +176,11 @@
       <a href="/subscribe">Subscribe for Updates</a>
     </div>
   </div>
+
+  <footer>
+    <p>Contact us: <a href="mailto:contact@thebrief.com">contact@thebrief.com</a> | Phone: +254 712 345 678</p>
+    <p>&copy; 2026 The Brief. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>
