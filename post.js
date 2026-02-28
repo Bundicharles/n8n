@@ -160,7 +160,7 @@ async function init() {
   }
 
   try {
-    const post = await fetchPostBySlug(decodeURIComponent(slug));
+    const post = await fetchPostBySlug(slug);
     renderPost(post);
   } catch (err) {
     console.error('[Blog] Failed to load post:', err);
