@@ -149,19 +149,14 @@ function showTime() {
     const now = new Date();
     const el = document.getElementById('currentTime');
 
-    // Numeric date
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
-    const year = now.getFullYear();
-
-    // Time
+    // Only time (HH:MM:SS)
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
 
-    el.innerHTML = `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
+    el.innerHTML = `${hours}:${minutes}:${seconds}`;
 
-    // Keep color changing
+    // Color changing effect
     el.style.color = colors[colorIndex];
     el.style.textShadow = `0 0 10px ${colors[colorIndex]}`;
     colorIndex = (colorIndex + 1) % colors.length;
